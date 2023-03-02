@@ -7,9 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title: string;
-  numberOne: number = 1;
-  numberTwo: number = 2;
-  togglePokemon: boolean = false;
+  imgSrc: string = "https://static.onecms.io/wp-content/uploads/sites/47/2021/04/13/kitten-pounce-158906394-2000.jpg";
   constructor(){
     this.title = "Neos-1st-Angular-App"
   }

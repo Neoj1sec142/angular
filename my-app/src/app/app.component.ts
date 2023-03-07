@@ -7,10 +7,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: string;
-  imgSrc: string = "https://static.onecms.io/wp-content/uploads/sites/47/2021/04/13/kitten-pounce-158906394-2000.jpg";
-  favAnimal: string = "kitty";
+  pokemonName: string = "";
+  
   constructor(){
-    this.title = "Neos-1st-Angular-App"
+    
+  }
+  handleClick(value: any){
+    console.log(value)
   }
 }

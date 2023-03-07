@@ -1,5 +1,2 @@
-<router-outlet></router-outlet>
-<h1 [innerHTML]="title"></h1>
-<img [src]="imgSrc" />
-<input [(ngModel)]="favAnimal" />
-<p>{{favAnimal}}</p>
+<input type="text" #pokemonName />
+<button (click)="handleClick(pokemonName.value)">Click Template Ref</button>

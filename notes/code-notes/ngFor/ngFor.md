@@ -1,3 +1,13 @@
+<div>
+    <p>Pokemon</p>
+    <tr *ngFor="let pokemon of pokemons">
+        <td class="pokemon-td">
+            {{pokemon.name}}
+        </td>    
+    </tr>
+</div>
+
+
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +16,8 @@ interface Pokemon {
   id: number,
   name: string,
   type: string,
-  isCool: boolean
+  isCool: boolean,
+  isStylish: boolean
 }
 
 @Component({
@@ -14,32 +25,34 @@ interface Pokemon {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
   pokemons: Pokemon[] = [{
     id: 1,
     name: 'pikachu',
     type: 'electric',
-    isCool: false
+    isCool: false,
+    isStylish: false
   },{
     id: 2,
     name: 'squirtle',
     type: 'water',
-    isCool: true
+    isCool: true,
+    isStylish: true
   },{
     id: 3,
     name: 'charmander',
     type: 'fire',
-    isCool: false
+    isCool: false,
+    isStylish: true
   },{
     id: 4,
     name: 'bulbasaur',
     type: 'grass',
-    isCool: true
+    isCool: true,
+    isStylish: false
   }]
-  
-  
   constructor(){
-    
+
   }
   
 }

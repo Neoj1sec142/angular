@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { PokemonBaseModule } from './pokemon-base/pokemon-base.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    PokemonBaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

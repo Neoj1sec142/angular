@@ -3,7 +3,4 @@
 ng new <app-name>
 ```
 
-### String Interpolation:
-```s
-{{}}
-```
+![Generate Componet](./code-notes//assets/generate.png)

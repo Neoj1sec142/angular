@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PokemonBaseModule } from './pokemon-base/pokemon-base.module';
+import { PokemonServiceService } from './services/pokemon-service.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { PokemonBaseModule } from './pokemon-base/pokemon-base.module';
     FormsModule,
     PokemonBaseModule
   ],
-  providers: [],
+  providers: [
+    PokemonServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

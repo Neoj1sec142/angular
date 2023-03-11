@@ -11,7 +11,7 @@ import { PokemonServiceService } from 'src/app/services/pokemon-service.service'
 export class PokemonListComponent implements OnInit {
   pokemons!: Pokemon[];
   constructor(private pokemonService: PokemonServiceService){
-    this.pokemons = this.pokemonService.getPokemon();
+    
   }
   handleRemove(event: Pokemon){
     this.pokemons = this.pokemons.filter(( pokemon: Pokemon ) => {
@@ -19,6 +19,9 @@ export class PokemonListComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-      
+      this.pokemonService.getPokemon().subscribe((data: Pokemon[]) => {
+        console.log(data);
+        this.pokemons = data;
+      });
   }
 }

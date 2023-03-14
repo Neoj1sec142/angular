@@ -33,6 +33,10 @@ export class PokemonTemplateFormComponent implements OnInit {
     console.log(object)
   }
 
+  handleSubmit(object: any){
+    console.log(object)
+  }
+
   ngOnInit() {
     this.pokemonService.getPokemon(1).subscribe((data: Pokemon) => {
       console.log(data)

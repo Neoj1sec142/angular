@@ -10,7 +10,8 @@ import { PokemonTemplateFormComponent } from './pokemon-template-form/pokemon-te
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PokemonTemplateFormComponent
   ],
   imports: [
     BrowserModule,

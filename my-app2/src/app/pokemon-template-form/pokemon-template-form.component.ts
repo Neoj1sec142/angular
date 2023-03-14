@@ -9,14 +9,12 @@ import { PokemonServiceService } from '../services/pokemon-service.service';
 })
 export class PokemonTemplateFormComponent implements OnInit {
   pokemon!: Pokemon;
-  constructor(private pokemonService: PokemonServiceService) {
-  }
   
+  constructor(private pokemonService: PokemonServiceService) { }
   
-  
-
   ngOnInit() {
     this.pokemonService.getPokemon(1).subscribe((data: Pokemon) => {
+      console.log(data)
       this.pokemon = data;
     })
   }

@@ -23,6 +23,7 @@ const routes: Routes = [
   declarations: [
     PokemonListComponent,
     PokemonDetailComponent,
+    PokemonTemplateFormComponent
     
   ],
   imports: [

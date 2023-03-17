@@ -21,7 +21,7 @@
   </label>
   <label>
     Select Pokemon type
-    <select name="pokemonType" [ngModel]="pokemon?.name">
+    <select name="pokemonType" [ngModel]="pokemon.name">
       <option *ngFor="let type of pokemonType" [value]="type.value" [selected]="type.value === pokemon.type">{{ type.value }}</option>
     </select>
   </label>

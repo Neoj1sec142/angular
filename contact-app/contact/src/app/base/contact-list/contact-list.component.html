@@ -1,3 +1,12 @@
-<p>
-  contact-list works!
-</p>
+<div class="container-fluid">
+  <div class="d-flex justify-content-center mt-5 p-3 mb-5">
+    <div class="row w-75 shadow-sm mt-3 mb-3 p-2">
+      <app-contact-detail 
+            #contactRef
+            *ngFor="let contact of contacts" 
+            [detail]="contact"
+            (remove)="handleRemove($event)"
+            ><h1 #contentRef>{{ contact.name }}</h1></app-contact-detail>
+    </div>
+  </div>
+</div>

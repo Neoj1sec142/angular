@@ -1,3 +1,7 @@
-<p>
-  contact-detail works!
-</p>
+<tr>
+  <td class="contact-td" >
+     {{detail.name}} {{ detail.id }}
+  </td>
+  <button [routerLink]="['/contacts', detail.id]">Details</button>
+  <button (click)="onRemove()">Remove Pokemon</button>
+</tr>

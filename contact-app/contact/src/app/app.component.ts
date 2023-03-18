@@ -38,11 +38,6 @@ export class AppComponent {
       link: 'new-social',
       name: 'Add Social',
       exact: true
-    },
-    {
-      link: 'contact/:id',
-      name: 'Contact Details',
-      exact: true
-    },
+    }
   ]
 }

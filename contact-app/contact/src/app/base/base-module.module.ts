@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { SocialFormComponent } from './social-form/social-form.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'contact', component: ContactListComponent },
-      { path: 'new-contact', component: ContactListComponent },
+      { path: 'new-contact', component: ContactFormComponent },
       { path: 'new-social', component: SocialFormComponent },
       { path: 'new-email', component: EmailFormComponent },
       { path: 'contact/:id', component: ContactDetailComponent },
@@ -30,6 +30,7 @@ const routes: Routes = [
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   exports: [

@@ -30,21 +30,19 @@ export class ContactFormComponent implements OnInit {
     if (this.contactForm.valid) {
       
       const contact: Contact = {
-      name: this.contactForm.value.name,
-      phone_number: this.contactForm.value.phone_number,
-      address: this.contactForm.value.address, // set other properties of Contact as needed
-      city_state: this.contactForm.value.city_state,
-      reference: '', // set an empty array or populate with data as needed
+        name: this.contactForm.value.name,
+        phone_number: this.contactForm.value.phone_number,
+        address: this.contactForm.value.address || '', 
+        city_state: this.contactForm.value.city_state || '',
+        reference: this.contactForm.value.reference || ''
       }
   
       this.contactService.createContact(contact).subscribe(
         (response) => {
           console.log('Contact created successfully', response);
-          // perform any additional actions needed after creating the contact
         },
         (error) => {
           console.error('Failed to create contact', error);
-          // handle error as needed
         }
       );
     }

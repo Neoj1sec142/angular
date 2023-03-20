@@ -7,3 +7,8 @@ export interface Contact{
     city_state: string,
     reference: string
 }
+
+export interface ContactName {
+    id: number,
+    name: string
+}

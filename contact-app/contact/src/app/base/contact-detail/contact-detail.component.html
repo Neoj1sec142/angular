@@ -1,7 +1,29 @@
-<tr>
-  <td class="contact-td" >
-     {{detail.name}} {{ detail.id }}
-  </td>
-  <button [routerLink]="['/contacts', detail.id]">Details</button>
-  <button (click)="onRemove()">Remove Pokemon</button>
-</tr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{ contactDetail.contact.name }}</h4>
+          <p class="card-text">{{ contactDetail.contact.phone_number }}</p>
+          <p class="card-text">{{ contactDetail.contact.address }}</p>
+          <p class="card-text">{{ contactDetail.contact.city_state }}</p>
+          <p class="card-text">{{ contactDetail.contact.reference }}</p>
+          <hr>
+          <h6 class="card-subtitle mb-2 text-muted">Contact Emails:</h6>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let email of contactDetail.emails">
+              {{ email.email }} ({{ email.category }})
+            </li>
+          </ul>
+          <hr>
+          <h6 class="card-subtitle mb-2 text-muted">Contact Socials:</h6>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let social of contactDetail.socials">
+              {{ social.social }} ({{ social.category }})
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

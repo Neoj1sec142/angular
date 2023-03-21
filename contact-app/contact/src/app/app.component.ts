@@ -20,7 +20,7 @@ export class AppComponent {
       exact: true
     },
     {
-      link: '/contact',
+      link: '/contacts',
       name: 'Contacts',
       exact: true
     },

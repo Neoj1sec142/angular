@@ -1,21 +1,29 @@
-<form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-  <div class="form-group" *ngIf="contacts.length">
-    <label for="contact">Contact:</label>
-    <select formControlName="contact" class="form-control">
-      <option value="">Choose a contact</option>
-      <option *ngFor="let contact of contacts" [value]="contact.id">{{contact.name}}</option>
-    </select>
+<div class="container-fluid">
+  <div class="d-flex justify-content-center mt-5 mb-5 p-3">
+    <div class="row w-75 shadow-sm">
+      <p class="fs-5 p-2 m-2 text-center">New Email</p>
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mt-1" *ngIf="contacts.length">
+          <label for="contact">Contact:</label>
+          <select formControlName="contact" class="form-control">
+            <option value="">Choose a contact</option>
+            <option *ngFor="let contact of contacts" [value]="contact.id">{{contact.name}}</option>
+          </select>
+        </div>
+        <div class="form-group mt-1">
+          <label for="email">Email:</label>
+          <input type="text" formControlName="email" class="form-control">
+        </div>
+        <div class="form-group mt-1">
+          <label for="category">Category:</label>
+          <select formControlName="category" class="form-control">
+            <option value="">Choose an Email Type</option>
+            <option *ngFor="let cat of emailCategories" >{{cat}}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3 mt-2">Submit</button>
+        <button (click)="onCancel()" class="btn btn-danger mb-3 mt-2 ms-3">Cancel</button>
+      </form>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="text" formControlName="email" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="category">Category:</label>
-    <select formControlName="category" class="form-control">
-      <option value="">Choose an Email Type</option>
-      <option *ngFor="let cat of emailCategories" >{{cat}}</option>
-    </select>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>

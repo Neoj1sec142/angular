@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Contact, ContactDetail } from 'src/app/_models/contact';
+import { ContactDetail } from 'src/app/_models/contact';
 import { ContactEmail } from 'src/app/_models/email';
 import { ContactSocial } from 'src/app/_models/social';
 import { ContactServiceService } from 'src/app/_services/contact-service.service';
+import { EmailServiceService } from 'src/app/_services/email-service.service';
+import { SocialServiceService } from 'src/app/_services/social-service.service';
 
 
 
@@ -26,12 +28,13 @@ export class ContactDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
     private contactService: ContactServiceService,
+    private emailService: EmailServiceService,
+    private socialService: SocialServiceService,
     private router: Router) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.contactService.getContactDetails(id).subscribe((data) => {
-      console.log(data, "DATA")
       this.contactDetail.id = data.id;
       this.contactDetail.name = data.name;
       this.contactDetail.phone_number = data.phone_number;
@@ -47,13 +50,26 @@ export class ContactDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.contactService.deleteContact(id).subscribe(
       (response) => {
-        console.log(response, "Successfully Deleted")
         this.router.navigate(['/contacts']);
       },
       (error) => {
         console.log(error, "Error")
       })
     }
+  }
+  removeEmail(id: any){
+    this.emailService.deleteEmail(id).subscribe(
+      (response) => {
+        this.router.navigate(['/contacts'])
+      },
+      (error) => console.log(error, "error"))
+  }
+  removeSocial(id: any){
+    this.socialService.deleteSocial(id).subscribe(
+      (response) => {
+        this.router.navigate(['/contacts'])
+      },
+      (error) => console.log(error, "error"))
   }
 
 }

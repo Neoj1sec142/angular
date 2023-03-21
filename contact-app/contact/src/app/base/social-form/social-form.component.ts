@@ -40,12 +40,16 @@ export class SocialFormComponent implements OnInit {
       }
       this.socialService.addSocial(social).subscribe(
         (response) => {
-          console.log(response, "Success")
           if (window.confirm("Social has been uploaded successfully. Are you finished with this contact?")) {
             this.router.navigate(['/contacts']);
           }
         },
         (error) => console.log(error, "Error"))
+    }
+  }
+  onCancel(): void{
+    if(window.confirm('Are you sure?')){
+      this.router.navigate(['/contacts']);
     }
   }
 }

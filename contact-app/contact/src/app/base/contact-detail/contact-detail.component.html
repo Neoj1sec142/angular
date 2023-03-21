@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body mt-3 mb-3 p-3">
           <h4 class="card-title">{{ contactDetail.name }}
-            <button (click)="removeContact()" class="btn btn-outline-danger float-end">❌</button>
+            <button (click)="removeContact()" class="btn btn-outline-danger float-end"><i class="fa-solid fa-trash-can"></i></button>
           </h4>
           <p class="card-text">{{ contactDetail.phone_number }}</p>
           <p class="card-text">{{ contactDetail.address }}</p>
@@ -15,6 +15,7 @@
           <ul class="list-group">
             <li class="list-group-item" *ngFor="let email of contactDetail.emails?.length ? contactDetail.emails : []">
               {{ email.email }} ({{ email.category }})
+              <button (click)="removeEmail(email.id)" class="btn btn-danger float-end">Remove</button>
             </li>
           </ul>
           <hr>
@@ -22,6 +23,7 @@
           <ul class="list-group">
             <li class="list-group-item" *ngFor="let social of contactDetail.socials?.length ? contactDetail.socials : []">
               {{ social.social }} ({{ social.category }})
+              <button (click)="removeSocial(social.id)" class="btn btn-danger float-end">Remove</button>
             </li>
           </ul>
         </div>

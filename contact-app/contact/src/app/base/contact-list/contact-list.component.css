@@ -1,0 +1,11 @@
+a{
+    text-decoration: none;
+    color: rgb(2, 2, 134);
+}
+a:hover{
+    text-decoration: none;
+    color: rgb(21, 205, 33);
+    z-index: 100;
+    transition: 0.5s;
+    box-shadow: 1px 2px solid grey;
+}

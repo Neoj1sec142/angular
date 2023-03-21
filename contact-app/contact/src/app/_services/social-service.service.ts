@@ -14,10 +14,6 @@ addSocial(social: ContactSocial): Observable<ContactSocial> {
   return this.http.post<ContactSocial>(`${SOCIALS_API}/`, social);
 }
 
-updateSocial(id: number, social: ContactSocial): Observable<ContactSocial> {
-  return this.http.put<ContactSocial>(`${SOCIALS_API}/${id}/`, social);
-}
-
 deleteSocial(id: number): Observable<any> {
   return this.http.delete(`${SOCIALS_API}/${id}/`);
 }

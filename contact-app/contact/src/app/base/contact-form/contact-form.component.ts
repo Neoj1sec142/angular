@@ -41,7 +41,6 @@ export class ContactFormComponent implements OnInit {
   
       this.contactService.createContact(contact).subscribe(
         (response) => {
-          console.log('Contact created successfully', response);
           if (window.confirm("Email has been uploaded successfully. Do you want to continue to the next page?")) {
             this.router.navigate(['/new-email']);
           }
@@ -50,6 +49,11 @@ export class ContactFormComponent implements OnInit {
           console.error('Failed to create contact', error);
         }
       );
+    }
+  }
+  onCancel(): void{
+    if(window.confirm('Are you sure?')){
+      this.router.navigate(['/contacts']);
     }
   }
 

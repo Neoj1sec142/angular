@@ -41,7 +41,6 @@ export class EmailFormComponent implements OnInit {
       }
       this.emailService.addEmail(email).subscribe(
         (response) => {
-          console.log(response, "Success")
           if (window.confirm("Email has been uploaded successfully. Do you want to continue to the next page?")) {
             this.router.navigate(['/new-social']);
           }
@@ -49,6 +48,11 @@ export class EmailFormComponent implements OnInit {
         (error) => {
           console.log(error, "Error")
         })
+    }
+  }
+  onCancel(): void{
+    if(window.confirm('Are you sure?')){
+      this.router.navigate(['/contacts']);
     }
   }
 

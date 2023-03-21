@@ -13,15 +13,9 @@ export class ContactListComponent implements OnInit {
   @ViewChildren('contactRef') contactRef!: ElementRef
   @ContentChildren(ContactDetailComponent) contentList!: any;
   constructor(private contactService: ContactServiceService) { }
-  handleRemove(event: Contact){
-    // this.contacts = this.pokemons.filter(( pokemon: Pokemon ) => {
-    //   return pokemon.id !== event.id;
-    // })
-    console.log(event)
-  }
+  
   ngOnInit() {
     this.contactService.getContacts().subscribe((data: Contact[]) => {
-      console.log(data, "Data")
       this.contacts = data;
     })
   }

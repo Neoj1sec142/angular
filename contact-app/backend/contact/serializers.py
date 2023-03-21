@@ -2,14 +2,16 @@ from rest_framework import serializers
 from .models import Contact, ContactEmail, ContactSocial
 
 class ContactEmailSerializer(serializers.ModelSerializer):
+    contact = serializers.PrimaryKeyRelatedField(queryset=Contact.objects.all())
     class Meta:
         model = ContactEmail
-        fields = ['id', 'email', 'category', 'date_created', 'date_modified']
+        fields = ['id', 'email', 'category', 'contact', 'date_created', 'date_modified']
 
 class ContactSocialSerializer(serializers.ModelSerializer):
+    contact = serializers.PrimaryKeyRelatedField(queryset=Contact.objects.all())
     class Meta:
         model = ContactSocial
-        fields = ['id', 'social', 'category', 'date_created', 'date_modified']
+        fields = ['id', 'social', 'category', 'contact', 'date_created', 'date_modified']
 
 class ContactSerializer(serializers.ModelSerializer):
     emails = ContactEmailSerializer(many=True, read_only=True)

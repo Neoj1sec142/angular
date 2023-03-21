@@ -19,9 +19,12 @@ class ContactDetail(APIView):
             contact = Contact.objects.get(pk=pk)
         except Contact.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
-        serializer = ContactSerializer(contact)
-        return Response(serializer.data)
+        emails = ContactEmail.objects.filter(contact=contact.id)
+        socials = ContactSocial.objects.filter(contact=contact.id)
+        data = ContactSerializer(contact).data
+        data['socials'] = ContactSocialSerializer(socials, many=True).data
+        data['emails'] = ContactEmailSerializer(emails, many=True).data
+        return Response(data)
 
 class ContactNames(generics.ListAPIView):
     queryset = Contact.objects.all()

@@ -1,5 +1,5 @@
 <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+  <div class="form-group" *ngIf="contacts.length">
     <label for="contact">Contact:</label>
     <select formControlName="contact" class="form-control">
       <option value="">Choose a contact</option>
@@ -13,7 +13,7 @@
   <div class="form-group">
     <label for="category">Category:</label>
     <select formControlName="category" class="form-control">
-      <option value="">Choose a contact</option>
+      <option value="">Choose an Email Type</option>
       <option *ngFor="let cat of emailCategories" >{{cat}}</option>
     </select>
   </div>

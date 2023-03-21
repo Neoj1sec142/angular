@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactEmail, EmailCategoryTypes } from 'src/app/_models/email';
 import { EmailServiceService } from 'src/app/_services/email-service.service';
 import { ContactServiceService } from 'src/app/_services/contact-service.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-email-form',
   templateUrl: './email-form.component.html',
@@ -15,7 +16,8 @@ export class EmailFormComponent implements OnInit {
   contacts: {id: number, name: string}[] = [];
   constructor(private formBuilder: FormBuilder,
     private emailService: EmailServiceService,
-    private contactService: ContactServiceService) { }
+    private contactService: ContactServiceService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.emailForm = this.formBuilder.group({
@@ -40,6 +42,9 @@ export class EmailFormComponent implements OnInit {
       this.emailService.addEmail(email).subscribe(
         (response) => {
           console.log(response, "Success")
+          if (window.confirm("Email has been uploaded successfully. Do you want to continue to the next page?")) {
+            this.router.navigate(['/new-social']);
+          }
         },
         (error) => {
           console.log(error, "Error")

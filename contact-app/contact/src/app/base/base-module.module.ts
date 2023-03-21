@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'contact', component: ContactListComponent },
+      { path: 'contacts', component: ContactListComponent },
       { path: 'new-contact', component: ContactFormComponent },
       { path: 'new-social', component: SocialFormComponent },
       { path: 'new-email', component: EmailFormComponent },

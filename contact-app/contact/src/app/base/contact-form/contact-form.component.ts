@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Contact } from '../../_models/contact';
 import {ContactServiceService} from '../../_services/contact-service.service'
 @Component({
@@ -13,7 +14,8 @@ export class ContactFormComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, 
-    private contactService: ContactServiceService) { }
+    private contactService: ContactServiceService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
@@ -40,6 +42,9 @@ export class ContactFormComponent implements OnInit {
       this.contactService.createContact(contact).subscribe(
         (response) => {
           console.log('Contact created successfully', response);
+          if (window.confirm("Email has been uploaded successfully. Do you want to continue to the next page?")) {
+            this.router.navigate(['/new-email']);
+          }
         },
         (error) => {
           console.error('Failed to create contact', error);

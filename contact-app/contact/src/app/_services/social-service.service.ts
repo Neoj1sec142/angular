@@ -10,15 +10,15 @@ export class SocialServiceService {
 
 constructor(private http: HttpClient) { }
 
-addEmail(social: ContactSocial): Observable<ContactSocial> {
+addSocial(social: ContactSocial): Observable<ContactSocial> {
   return this.http.post<ContactSocial>(`${SOCIALS_API}/`, social);
 }
 
-updateEmail(id: number, social: ContactSocial): Observable<ContactSocial> {
+updateSocial(id: number, social: ContactSocial): Observable<ContactSocial> {
   return this.http.put<ContactSocial>(`${SOCIALS_API}/${id}/`, social);
 }
 
-deleteEmail(id: number): Observable<any> {
+deleteSocial(id: number): Observable<any> {
   return this.http.delete(`${SOCIALS_API}/${id}/`);
 }
 

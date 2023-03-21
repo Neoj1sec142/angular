@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Contact, ContactName } from '../_models/contact';
+import { Contact, ContactDetail, ContactName } from '../_models/contact';
 const CONTACTS_API = 'http://localhost:8000/contacts'
 const CONTACTNAME_API = 'http://localhost:8000/contacts-names'
 const CONTACT_API = 'http://localhost:8000/contact'
@@ -13,7 +13,7 @@ export class ContactServiceService {
 constructor(private http: HttpClient) { }
 
 getContactDetails(id: any){
-  return this.http.get<Contact>(`${CONTACT_API}/${id}/`)
+  return this.http.get<ContactDetail>(`${CONTACT_API}/${id}/`)
 }
 getContacts(): Observable<Contact[]>{
   return this.http.get<Contact[]>(`${CONTACTS_API}/`)
@@ -33,7 +33,7 @@ updateContact(id: number, contact: Contact): Observable<Contact> {
   return this.http.put<Contact>(`${CONTACTS_API}/${id}/`, contact);
 }
 
-deleteContact(id: number): Observable<any> {
+deleteContact(id: any): Observable<any> {
   return this.http.delete(`${CONTACTS_API}/${id}/`);
 }
 

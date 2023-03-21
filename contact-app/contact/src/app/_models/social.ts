@@ -1,5 +1,5 @@
 // Email Model
-const SocialCategoryTypes = ['Facebook', "Instagram", "Twitter", 'LinkedIN', 'Github', 'Youtube']
+export const SocialCategoryTypes = ['Facebook', "Instagram", "Twitter", 'LinkedIN', 'Github', 'Youtube']
 
 export interface ContactSocial{
     contact: number,

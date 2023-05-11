@@ -11,12 +11,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from './_services/auth.service';
 import { LoginComponent } from './base/login/login.component';
 import { RegisterComponent } from './base/register/register.component';
+import { DashboardComponent } from './base/dashboard/dashboard.component';
+import { ConfirmAlertDialogComponent } from './alerts/ConfirmAlertDialog/ConfirmAlertDialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
+    ConfirmAlertDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,7 @@ import { RegisterComponent } from './base/register/register.component';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    
+    MatDialogModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

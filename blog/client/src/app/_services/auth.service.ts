@@ -31,11 +31,10 @@ export class AuthService {
     return this.http.delete(`${this.apiUrl}${id}/`);
   }
   register(data: UserDto){
-    return this.http.post<UserDto>(`${this.apiUrl}create/`, data, this.httpOptions).subscribe(
-      (data: any) => {console.log('REFRESH DATA', data)});
+    return this.http.post<UserDto>(`${this.apiUrl}create/`, data, this.httpOptions)
   }
   login(data: LoginGroup): Observable<any> {
-    const url = `${this.baseUrl}/login`;
+    const url = `${this.baseUrl}token/obtain/`;
     return this.http.post<any>(url, data, this.httpOptions).pipe(
       tap((res: any) => {
         console.log(res, "LOGIN RES")
@@ -46,30 +45,32 @@ export class AuthService {
   }
   refreshToken(): Observable<any> {
     const url = `${this.baseUrl}/token/refresh`;
-    try{
+    if(!localStorage.getItem(this.RT)){
+      return of(false);
+    }else{
+      // const data = localStorage.getItem(this.RT);
+      // console.log(data, "REFRESH")
+      // this.http.post<any>(url, data, this.httpOptions).subscribe((res: any) => {
+      //   console.log(res, "REFRESH")
+      //   localStorage.setItem(this.AT, res.data.access);
+      //   localStorage.setItem(this.RT, res.data.refresh);  
+      // })
+      // return of(true)
       const refreshToken = localStorage.getItem(this.RT);
-      const data = { refreshToken };
+      const data = { refresh: refreshToken };
       return this.http.post<any>(url, data, this.httpOptions).pipe(
-        map((res: any) => {
-          console.log(res, "refresh res")
-          if(res.data.access){
-            localStorage.setItem(this.AT, res.data.access);
-            localStorage.setItem(this.RT, res.data.refresh);
-            return true;
-          }else{
-            return false
-          }
+        tap((res: any) => {
+          console.log(res, "REFRESH");
+          localStorage.setItem(this.AT, res.data.access);
+          localStorage.setItem(this.RT, res.data.refresh);
         }),
+        map((res: any) => true), // return an Observable of true if the request was successful
         catchError((err) => {
-          console.log(err, "REFRESH ERR")
-          return of(false);
+          console.log(err, "REFRESH ERR");
+          return of(false); // return an Observable of false if there was an error
         })
       );
-    }catch(err){
-      console.log(err)
-      return of(false)
     }
-    
   }
   logout(){
     const token = localStorage.getItem(this.RT)

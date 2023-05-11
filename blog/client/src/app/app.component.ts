@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './_models/User';
 import { AuthService } from './_services/auth.service';
 import { forkJoin } from 'rxjs';
+import { Nav } from './_models/Nav';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,27 @@ export class AppComponent implements OnInit {
   constructor(_authSvc: AuthService) {
     
   }
+  nav: Nav[] = [
+    {
+      link: '/dashboard',
+      name: 'Dashboard',
+      exact: true
+    },
+    {
+      link: '/login',
+      name: 'Login',
+      exact: true
+    },
+    {
+      link: '/logout',
+      name: 'Logout',
+      exact: true
+    }
+
+  ]
   ngOnInit(): void {
     forkJoin([
-      this.checkAuth(),
+      // this.checkAuth(),
       this.getAuthHeaders()
     ])
   }

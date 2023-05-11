@@ -1,7 +1,8 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="d-flex justify-content-center mt-5">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="row w-50">
   <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" required>
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" required>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Password</mat-label>
@@ -9,3 +10,4 @@
   </mat-form-field>
   <button mat-raised-button color="primary" type="submit">Login</button>
 </form>
+</div>

@@ -28,17 +28,23 @@ import { AuthService } from './_services/auth.service';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './base/dashboard/dashboard.component';
+import { CommonModule } from '@angular/common';
+import { LandComponent } from './base/land/land.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    LogoutComponent,
+    LandComponent,
     DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

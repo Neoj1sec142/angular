@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UserDto } from '../_models/User';
+import { Router } from '@angular/router';
 
 interface TokenResponse{
     access: string, 
@@ -21,7 +22,10 @@ export class AuthService {
     private readonly accessTokenSubject = new BehaviorSubject<string|null>(null);
     public readonly accessToken$ = this.accessTokenSubject.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        ) {
         const accessToken = localStorage.getItem(this.ACCESS_TOKEN_KEY);
         this.accessTokenSubject.next(accessToken);
     }
@@ -31,31 +35,44 @@ export class AuthService {
     }
     
     public login(username: string, password: string): Observable<any> {
-        return this.http.post(`${this.API_URL}/token/obtain/`, {username, password}).pipe(
+        return this.http.post(`${this.API_URL}token/obtain/`, {username, password}).pipe(
         tap((response: any) => {
-            const {access, refresh} = response;
-            this.setTokens(access, refresh);
-            this.accessTokenSubject.next(access);
+            if(response.access){
+                const {access, refresh} = response;
+                this.setTokens(access, refresh);
+                console.log(response, 'LOGIN')
+                this.accessTokenSubject.next(access);
+                this.router.navigate(['/dashboard'])
+            }else{
+                this.logout()
+            }
+            
         })
         );
     }
 
     public refreshToken(): Observable<any> {
-        const url = `${this.API_URL}/token/refresh/`;
+        const url = `${this.API_URL}token/refresh/`;
         const refreshToken = this.getRefreshToken();
         if (!refreshToken) {
-        return of(null);
+            console.log("HEREREREREs")
+            return of(null);
         }
-    return this.http.post<TokenResponse>(url, {refresh: refreshToken}).pipe(
-      tap(response => this.setAccessToken(response.access)),
-      tap(() => this.accessTokenSubject.next(this.getAccessToken()))
-        );
+        return this.http.post<TokenResponse>(url, {refresh: refreshToken}).pipe(
+            tap(response => this.setAccessToken(response.access)),
+            tap(() => this.accessTokenSubject.next(this.getAccessToken()))
+                );
     }
 
-    public logout(): void {
-        localStorage.removeItem(this.ACCESS_TOKEN_KEY);
-        localStorage.removeItem(this.REFRESH_TOKEN_KEY);
-        this.accessTokenSubject.next(null);
+    public logout() {
+        const url = `${this.API_URL}users/logout/`
+        
+        return this.http.post(url, {refresh_token: this.getRefreshToken()}).subscribe((data: any) => {
+            console.log(data, 'LOGOUT')
+            localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+            localStorage.removeItem(this.REFRESH_TOKEN_KEY);
+            this.accessTokenSubject.next(null);
+        })
     }
 
     public isAuthenticated(): boolean {

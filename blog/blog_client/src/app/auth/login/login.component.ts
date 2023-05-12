@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       this.submitted = false;
     }
   ngOnInit(): void {
-    if(this.registerComponent.registerForm.value != null){ this.fillForm() }
+    if(this.registerComponent?.registerForm?.value != null){ this.fillForm() }
   }
     
   onSubmit() {

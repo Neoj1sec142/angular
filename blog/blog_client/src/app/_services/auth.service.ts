@@ -27,7 +27,7 @@ export class AuthService {
     }
 
     public register(user: UserDto){
-        return this.http.post(`${this.API_URL}/users/create/`, user)
+        return this.http.post(`${this.API_URL}users/create/`, user)
     }
     
     public login(username: string, password: string): Observable<any> {

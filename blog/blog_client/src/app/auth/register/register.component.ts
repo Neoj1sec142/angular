@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
+import { UserDto } from 'src/app/_models/User';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +19,10 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required, this.passwordMatchValidator],
+      confirmPassword: ['', Validators.required],
     });
   }
   passwordMatchValidator(control: AbstractControl): { passwordMismatch: boolean } | null {
@@ -31,10 +34,10 @@ export class RegisterComponent {
   }
   onSubmit() {
     this.isSubmitting = true;
-    const credentials = this.registerForm.value;
+    const credentials: UserDto = this.registerForm.value;
     this.authService.register(credentials).subscribe(
-      () => {},
-      () => { this.isSubmitting = false; }
+      (res) => { console.log(res)},
+      (err) => { this.isSubmitting = false; }
     );
   }
 

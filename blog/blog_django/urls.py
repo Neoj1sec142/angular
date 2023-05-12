@@ -24,7 +24,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
-    # path('s/', include('social.urls')),
+    path('blog/', include('blog_activity.urls')),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

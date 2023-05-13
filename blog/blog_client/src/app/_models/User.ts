@@ -12,5 +12,5 @@ export interface User{
     username: string,
     email: string,
     date_joined: Date,
-    is_staff: boolean,
+    is_staff: boolean
 }

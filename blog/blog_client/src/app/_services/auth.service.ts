@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { UserDto } from '../_models/User';
+import { User, UserDto } from '../_models/User';
 import { Router } from '@angular/router';
 
 interface TokenResponse{
@@ -14,11 +14,11 @@ interface TokenResponse{
   providedIn: 'root'
 })
 export class AuthService {
-
+    currentUser!: User
     private readonly API_URL = 'http://localhost:8000/';
     private readonly ACCESS_TOKEN_KEY = 'access_token';
     private readonly REFRESH_TOKEN_KEY = 'refresh_token';
-
+    private readonly UID = 'user_id'
     private readonly accessTokenSubject = new BehaviorSubject<string|null>(null);
     public readonly accessToken$ = this.accessTokenSubject.asObservable();
 
@@ -35,18 +35,18 @@ export class AuthService {
     }
     
     public login(username: string, password: string): Observable<any> {
-        return this.http.post(`${this.API_URL}token/obtain/`, {username, password}).pipe(
+        return this.http.post(`${this.API_URL}users/login/`, {username, password}).pipe(
         tap((response: any) => {
-            if(response.access){
-                const {access, refresh} = response;
-                this.setTokens(access, refresh);
-                console.log(response, 'LOGIN')
-                this.accessTokenSubject.next(access);
+            console.log(response, 'LOGIN')
+            if(response.access_token){
+                const {access_token, refresh_token, user} = response;
+                this.setTokens(access_token, refresh_token);
+                this.currentUser = user
+                this.accessTokenSubject.next(access_token);
                 this.router.navigate(['/dashboard'])
             }else{
                 this.logout()
             }
-            
         })
         );
     }
@@ -58,7 +58,7 @@ export class AuthService {
             console.log("HEREREREREs")
             return of(null);
         }
-        return this.http.post<TokenResponse>(url, {refresh: refreshToken}).pipe(
+        return this.http.post<TokenResponse>(url, {refresh_token: refreshToken}).pipe(
             tap(response => this.setAccessToken(response.access)),
             tap(() => this.accessTokenSubject.next(this.getAccessToken()))
                 );
@@ -95,5 +95,13 @@ export class AuthService {
     private getRefreshToken(): string | null {
         return localStorage.getItem(this.REFRESH_TOKEN_KEY);
     }
-
+    public setId(id: any): void{
+        return localStorage.setItem(this.UID, id)
+    }
+    public removeId(): void{
+        return localStorage.removeItem(this.UID)
+    }
+    public getId(): string | null {
+        return localStorage.getItem(this.UID)
+    }
 }

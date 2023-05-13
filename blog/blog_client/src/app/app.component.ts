@@ -11,11 +11,11 @@ import { Routes } from '@angular/router';
   
 })
 export class AppComponent implements OnInit {
-  user!: User
+  currentUser!: User
   isAuthenticated: boolean;
   userRoutes!: Routes;
   constructor(private authSvc: AuthService) {
-    this.isAuthenticated = this.checkAuth();
+    this.isAuthenticated = this.checkAuth(); 
   }
   ngOnInit(): void {
     console.log(this.isAuthenticated)
@@ -50,5 +50,9 @@ export class AppComponent implements OnInit {
       ];
     }
   }
-  
+  getCurrentUser(){
+    const id = this.authSvc.getId()
+    // this.authSvc.
+    
+  }
 }

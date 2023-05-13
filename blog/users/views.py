@@ -5,7 +5,8 @@ from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Create your views here.
 class UserList(generics.ListCreateAPIView):
@@ -49,3 +50,26 @@ class UserLogout(APIView):
         token = RefreshToken(refresh_token)
         token.blacklist()
         return Response(status=status.HTTP_205_RESET_CONTENT)
+    
+class LoginView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
+    def post(self, request):
+        serializer = TokenObtainPairSerializer(data=request.data)
+        if serializer.is_valid():
+            tokens = serializer.validated_data
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        username = request.data['username']
+        user = User.objects.get(username=username)
+        data = {
+            'access_token': tokens['access'],
+            'refresh_token': tokens['refresh'],
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'is_staff': user.is_staff
+            }
+        }
+        return Response(data, status=status.HTTP_200_OK)

@@ -1,3 +1,21 @@
-<p>
-  post-create works!
-</p>
+<div class="d-flex justify-content-center">
+  <form class="row w-75 mt-5" [formGroup]="pForm" (ngSubmit)="onSubmit()">
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" type="text" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Text</mat-label>
+      <textarea matInput formControlName="text" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Link</mat-label>
+      <input matInput formControlName="link" type="text">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+</div>

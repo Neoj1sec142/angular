@@ -34,16 +34,19 @@ export class AppComponent implements OnInit {
   
   getAvailableRoutes(){
     if(!this.authSvc.isAuthenticated()){
+      // Public Routes
       this.userRoutes = [
         { path: 'land', title: 'Home Page' },
         { path: 'login', title: 'Login' },
         { path: 'register', title: 'Register' },
       ];
     }else{
+      // Authenticated Routes
       this.userRoutes = [
         { path: 'land', title: 'Home Page' },
         { path: 'logout', title: 'Logout' },
         { path: 'dashboard', title: 'Dashboard', data: {requiresAuth: true} },
+        { path: 'new-post', title: 'New Post', data: {requiresAuth: true} },
       ];
     }
   }

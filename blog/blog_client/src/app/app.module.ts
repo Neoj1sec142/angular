@@ -31,6 +31,11 @@ import { DashboardComponent } from './base/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { LandComponent } from './base/land/land.component';
 import { LogoutComponent } from './auth/logout/logout.component';
+import { PostCreateComponent } from './blog_activity/post-create/post-create.component';
+import { PostDetailComponent } from './blog_activity/post-detail/post-detail.component';
+import { NotFoundComponent } from './base/not-found/not-found.component';
+import { UserProfileComponent } from './base/user-profile/user-profile.component';
+import { NotAuthorizedComponent } from './base/not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,12 @@ import { LogoutComponent } from './auth/logout/logout.component';
     RegisterComponent,
     LogoutComponent,
     LandComponent,
-    DashboardComponent
+    DashboardComponent,
+    PostCreateComponent,
+    PostDetailComponent,
+    NotFoundComponent,
+    UserProfileComponent,
+    NotAuthorizedComponent
   ],
   imports: [
     BrowserModule,

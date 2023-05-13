@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth.service';
-import { User } from './_models/User';
+import { AuthUser, User } from './_models/User';
 import { CommonModule } from '@angular/common';
 import { Routes } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Routes } from '@angular/router';
   
 })
 export class AppComponent implements OnInit {
-  currentUser!: User
+  currentUser!: any;
   isAuthenticated: boolean;
   userRoutes!: Routes;
   constructor(private authSvc: AuthService) {
@@ -50,9 +50,7 @@ export class AppComponent implements OnInit {
       ];
     }
   }
-  getCurrentUser(){
-    const id = this.authSvc.getId()
-    // this.authSvc.
-    
+  getCurrentUser(): void{
+    return this.currentUser = this.authSvc.currentUser;
   }
 }

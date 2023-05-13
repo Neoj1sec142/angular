@@ -5,8 +5,8 @@ from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 
 # Create your views here.
 class UserList(generics.ListCreateAPIView):
@@ -70,6 +70,36 @@ class LoginView(APIView):
                 'username': user.username,
                 'email': user.email,
                 'is_staff': user.is_staff
+            }
+        }
+        return Response(data, status=status.HTTP_200_OK)
+    
+class RefreshView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
+    def post(self, request):
+        serializer = TokenRefreshSerializer(data=request.data)
+        if serializer.is_valid():
+            tokens = serializer.validated_data
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user_id = RefreshToken(tokens['refresh']).payload['user_id']
+            user = User.objects.get(id=user_id)
+        except:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_400_BAD_REQUEST)
+        data = {
+            'access_token': tokens['access'],
+            'refresh_token': tokens['refresh'],
+            'user': {
+                'id': user.pk,
+                'username': user.username,
+                'email': user.email,
+                'is_staff': user.is_staff,
+                'is_superuser': user.is_superuser,
+                'is_active': user.is_active,
+                'is_authenticated': user.is_authenticated,
             }
         }
         return Response(data, status=status.HTTP_200_OK)

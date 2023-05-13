@@ -15,7 +15,9 @@ export class PostCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authSvc: AuthService
-    ){}
+    ){
+      // this.authSvc.
+    }
 
   ngOnInit() {
     this.initForm()

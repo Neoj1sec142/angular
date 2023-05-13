@@ -14,7 +14,7 @@ interface TokenResponse{
   providedIn: 'root'
 })
 export class AuthService {
-    currentUser!: User
+    currentUser!: any;
     private readonly API_URL = 'http://localhost:8000/';
     private readonly ACCESS_TOKEN_KEY = 'access_token';
     private readonly REFRESH_TOKEN_KEY = 'refresh_token';
@@ -52,17 +52,20 @@ export class AuthService {
     }
 
     public refreshToken(): Observable<any> {
-        const url = `${this.API_URL}token/refresh/`;
+        const url = `${this.API_URL}users/refresh/`;
         const refreshToken = this.getRefreshToken();
         if (!refreshToken) {
-            console.log("HEREREREREs")
-            return of(null);
+          return of(null);
         }
-        return this.http.post<TokenResponse>(url, {refresh_token: refreshToken}).pipe(
-            tap(response => this.setAccessToken(response.access)),
-            tap(() => this.accessTokenSubject.next(this.getAccessToken()))
-                );
-    }
+        return this.http.post<any>(url, { refresh: refreshToken }).pipe(
+          tap(response => {
+            this.setTokens(response.access_token, response.refresh_token);
+            this.setId(response.user.id);
+            this.currentUser = response.user;
+          }),
+          tap(() => this.accessTokenSubject.next(this.getAccessToken()))
+        );
+      }
 
     public logout() {
         const url = `${this.API_URL}users/logout/`
@@ -103,5 +106,11 @@ export class AuthService {
     }
     public getId(): string | null {
         return localStorage.getItem(this.UID)
+    }
+    public getUser(id: number){
+        return this.http.get<User[]>(`${this.API_URL}users/${id}`)
+    }
+    public getUsers(){
+        return this.http.get<User>(`${this.API_URL}users/`)
     }
 }

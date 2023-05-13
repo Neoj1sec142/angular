@@ -7,10 +7,22 @@ export interface UserDto{
 }
 export interface User{
     id: number,
+    username: string,
     first_name: string,
     last_name: string,
+    email: string,
+    is_staff: boolean,
+    is_superuser: boolean,
+    is_active: boolean,
+    is_authenticated: boolean
+}
+
+export interface AuthUser{
+    id: number,
     username: string,
     email: string,
-    date_joined: Date,
-    is_staff: boolean
+    is_staff: boolean,
+    is_superuser: boolean,
+    is_active: boolean,
+    is_authenticated: boolean
 }

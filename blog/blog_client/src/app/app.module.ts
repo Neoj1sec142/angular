@@ -36,6 +36,7 @@ import { PostDetailComponent } from './blog_activity/post-detail/post-detail.com
 import { NotFoundComponent } from './base/not-found/not-found.component';
 import { UserProfileComponent } from './base/user-profile/user-profile.component';
 import { NotAuthorizedComponent } from './base/not-authorized/not-authorized.component';
+import { BlogService } from './_services/blog.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,7 @@ import { NotAuthorizedComponent } from './base/not-authorized/not-authorized.com
     MatCheckboxModule,
     MatDialogModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, BlogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.isAuthenticated = this.checkAuth(); 
   }
   ngOnInit(): void {
-    console.log(this.isAuthenticated)
+    this.getCurrentUser()
     this.getAvailableRoutes()
   }
   
@@ -51,6 +51,6 @@ export class AppComponent implements OnInit {
     }
   }
   getCurrentUser(): void{
-    return this.currentUser = this.authSvc.currentUser;
+    return this.currentUser = this.authSvc.getCurrentUser()
   }
 }

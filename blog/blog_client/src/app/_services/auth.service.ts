@@ -41,6 +41,7 @@ export class AuthService {
             if(response.access_token){
                 const {access_token, refresh_token, user} = response;
                 this.setTokens(access_token, refresh_token);
+                this.setId(user.id)
                 this.currentUser = user
                 this.accessTokenSubject.next(access_token);
                 this.router.navigate(['/dashboard'])
@@ -87,10 +88,6 @@ export class AuthService {
         localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
     }
 
-    private setAccessToken(token: string): void {
-        localStorage.setItem(this.ACCESS_TOKEN_KEY, token);
-    }
-
     private getAccessToken(): string | null {
         return localStorage.getItem(this.ACCESS_TOKEN_KEY);
     }
@@ -108,9 +105,36 @@ export class AuthService {
         return localStorage.getItem(this.UID)
     }
     public getUser(id: number){
-        return this.http.get<User[]>(`${this.API_URL}users/${id}`)
+        return this.http.get<User>(`${this.API_URL}users/${id}`)
     }
     public getUsers(){
-        return this.http.get<User>(`${this.API_URL}users/`)
+        return this.http.get<User[]>(`${this.API_URL}users/`)
+    }
+    public getCurrentUser(): any{
+        const sid = this.getId()
+        if(sid){
+            const id = parseInt(sid)
+            this.http.get(`${this.API_URL}users/${id}/`).subscribe(
+                (res: any) => {
+                    console.log(res, "CURR")
+                    return res
+                }, (err: any) => {
+                    console.log(err)
+                })
+            }
+    }
+
+    private getAuthHeaders(): any {
+        const token = this.getAccessToken();
+        if (token) {
+            return { Authorization: `JWT ${token}` };
+        } else {
+            return {};
+        }
+    }
+    public getHeaders(){
+        const headers = this.getAuthHeaders();
+        headers['Content-Type'] = 'application/json'
+        return headers
     }
 }

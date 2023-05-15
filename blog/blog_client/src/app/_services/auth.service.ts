@@ -117,13 +117,15 @@ export class AuthService {
             this.http.get(`${this.API_URL}users/${id}/`).subscribe(
                 (res: any) => {
                     console.log(res, "CURR")
-                    return res
+                    this.updateCurrentUser(res)
                 }, (err: any) => {
                     console.log(err)
                 })
             }
     }
-
+    public updateCurrentUser(user: any){
+        this.currentUser = user
+    }
     private getAuthHeaders(): any {
         const token = this.getAccessToken();
         if (token) {

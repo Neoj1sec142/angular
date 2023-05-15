@@ -15,11 +15,12 @@ export class BlogService {
     private http: HttpClient,
     private authSvc: AuthService
     ) {
-      this.hd = this.authSvc.getHeaders()
+      
      }
   // Post Funcs
   createPost(p: PostDto){
-    return this.http.post<PostDto>(this.pURL, p, {headers: this.hd})
+    const hd = this.authSvc.getHeaders()
+    return this.http.post<PostDto>(this.pURL, p, {headers: hd})
   }
   getPosts(){
     return this.http.get<Post[]>(this.pURL, {headers: this.hd})

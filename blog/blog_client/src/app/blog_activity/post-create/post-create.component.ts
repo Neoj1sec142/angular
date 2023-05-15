@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostDto } from 'src/app/_models/Post';
@@ -14,32 +14,32 @@ import { BlogService } from 'src/app/_services/blog.service';
 })
 export class PostCreateComponent implements OnInit {
   pForm!: FormGroup;
-  user!: User;
+  @Input() currentUser!: any;
   
   constructor(
     private fb: FormBuilder,
     private authSvc: AuthService,
     private blogService: BlogService,
     private router: Router
-    ){
-      
-    }
+    ){}
 
   ngOnInit() {
     this.initForm()
-    this.user = this.authSvc.getCurrentUser()
+    
   }
   onSubmit(){
     if(this.pForm.invalid){
       alert('Please check your form any try again.')
       return
     }
+    
     const data: PostDto = {
-      author: this.user.id,
-      title: this.pForm.value.author,
-      text: this.pForm.value.author,
-      link: this.pForm.value.link
+      author: this.authSvc.currentUser.id,
+      title: this.pForm.get('title')?.value,
+      text: this.pForm.get('text')?.value,
+      link: this.pForm.get('link')?.value
     }
+    console.log(data, "POST AAAT")
     this.blogService.createPost(data).subscribe(
       (res: any) => {
         console.log(res, "POST RES")

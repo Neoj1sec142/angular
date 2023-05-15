@@ -19,6 +19,7 @@ class UserDetailByUsername(generics.RetrieveAPIView):
     lookup_field = 'username'
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.AllowAny, )
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
 
@@ -66,7 +67,7 @@ class LoginView(APIView):
             'access_token': tokens['access'],
             'refresh_token': tokens['refresh'],
             'user': {
-                'id': user.id,
+                'id': user.pk,
                 'username': user.username,
                 'email': user.email,
                 'is_staff': user.is_staff

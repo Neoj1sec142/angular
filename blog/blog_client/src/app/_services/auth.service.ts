@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User, UserDto } from '../_models/User';
@@ -24,6 +24,7 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
+        // private header: HttpHeaders,
         private router: Router,
         ) {
         const accessToken = localStorage.getItem(this.ACCESS_TOKEN_KEY);
@@ -126,17 +127,16 @@ export class AuthService {
     public updateCurrentUser(user: any){
         this.currentUser = user
     }
-    private getAuthHeaders(): any {
+    public getAuthHeaders(): any {
         const token = this.getAccessToken();
         if (token) {
-            return { Authorization: `JWT ${token}` };
+            let headers = new HttpHeaders();
+            headers.append('Authorization', `JWT ${token}`)
+            return headers
+            
         } else {
-            return {};
+            return new HttpHeaders();
         }
     }
-    public getHeaders(){
-        const headers = this.getAuthHeaders();
-        headers['Content-Type'] = 'application/json'
-        return headers
-    }
+    
 }

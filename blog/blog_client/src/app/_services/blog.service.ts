@@ -19,8 +19,8 @@ export class BlogService {
      }
   // Post Funcs
   createPost(p: PostDto){
-    const hd = this.authSvc.getHeaders()
-    return this.http.post<PostDto>(this.pURL, p, {headers: hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.post<PostDto>(`${this.pURL}new/`, p, {headers: hd})
   }
   getPosts(){
     return this.http.get<Post[]>(this.pURL, {headers: this.hd})

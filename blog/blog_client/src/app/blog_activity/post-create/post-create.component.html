@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center">
+<div *ngIf="!submitted; let editForm" class="d-flex justify-content-center">
   <form class="row w-75 mt-5" [formGroup]="pForm" (ngSubmit)="onSubmit()">
     
     <mat-form-field appearance="fill">

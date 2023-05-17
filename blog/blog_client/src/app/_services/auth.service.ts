@@ -5,9 +5,10 @@ import { tap } from 'rxjs/operators';
 import { User, UserDto } from '../_models/User';
 import { Router } from '@angular/router';
 
-interface TokenResponse{
-    access: string, 
-    refresh: string
+interface RefreshResponse{
+    access?: string, 
+    refresh?: string,
+    user?: any
 }
 
 @Injectable({
@@ -53,7 +54,7 @@ export class AuthService {
         );
     }
 
-    public refreshToken(): Observable<any> {
+    public refreshToken(): Observable<RefreshResponse | null> {
         const url = `${this.API_URL}users/refresh/`;
         const refreshToken = this.getRefreshToken();
         if (!refreshToken) {
@@ -84,6 +85,7 @@ export class AuthService {
         return !!this.getAccessToken();
     }
 
+    // TOKENS
     private setTokens(accessToken: string, refreshToken: string): void {
         localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
         localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
@@ -96,6 +98,8 @@ export class AuthService {
     private getRefreshToken(): string | null {
         return localStorage.getItem(this.REFRESH_TOKEN_KEY);
     }
+
+    // ID
     public setId(id: any): void{
         return localStorage.setItem(this.UID, id)
     }
@@ -105,6 +109,8 @@ export class AuthService {
     public getId(): string | null {
         return localStorage.getItem(this.UID)
     }
+
+    // CURRENT USER
     public getUser(id: number){
         return this.http.get<User>(`${this.API_URL}users/${id}`)
     }
@@ -130,12 +136,15 @@ export class AuthService {
     public getAuthHeaders(): any {
         const token = this.getAccessToken();
         if (token) {
-            let headers = new HttpHeaders();
-            headers.append('Authorization', `JWT ${token}`)
+            let headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: `JWT ${token}`
+            });
             return headers
-            
         } else {
-            return new HttpHeaders();
+            return new HttpHeaders({
+                'Content-Type': 'application/json',
+            });
         }
     }
     

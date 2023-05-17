@@ -7,6 +7,7 @@ import { AuthService } from './_services/auth.service';
 import { LandComponent } from './base/land/land.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { PostCreateComponent } from './blog_activity/post-create/post-create.component';
+import { PostDetailComponent } from './blog_activity/post-detail/post-detail.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'dashboard', component: DashboardComponent, data: {requiresAuth: true} },
     { path: 'new-post', component: PostCreateComponent, data: {requiresAuth: true} },
+    { path: 'post/edit/:id', component: PostDetailComponent, data: { requiresAuth: true } },
   ];
 
 

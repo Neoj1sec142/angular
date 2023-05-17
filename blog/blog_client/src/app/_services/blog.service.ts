@@ -20,36 +20,45 @@ export class BlogService {
   // Post Funcs
   createPost(p: PostDto){
     const hd = this.authSvc.getAuthHeaders()
-    return this.http.post<PostDto>(`${this.pURL}new/`, p, {headers: hd})
+    return this.http.post<PostDto>(`${this.pURL}`, p, {headers: hd})
   }
   getPosts(){
-    return this.http.get<Post[]>(this.pURL, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.get<Post[]>(this.pURL, {headers: hd})
   }
   getPost(id: number){
-    return this.http.get<Post>(`${this.pURL}${id}/`, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.get<Post>(`${this.pURL}${id}/`, {headers: hd})
   }
   updatePost(p: Post){
+    const hd = this.authSvc.getAuthHeaders()
     return this.http.put<Post>(this.pURL, p, {headers: this.hd})
   }
   deletePost(id: number){
-    return this.http.delete(`${this.pURL}${id}/`, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.delete(`${this.pURL}${id}/`, {headers: hd})
   }
   // Comment Funcs
   createComment(c: CommentDto){
-    return this.http.post<CommentDto>(this.cURL, c, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.post<CommentDto>(this.cURL, c, {headers: hd})
   }
   getPostComments(id: number){
     // -> need to create view
-    return this.http.get<Comment[]>(`${this.cURL}${id}/`, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.get<Comment[]>(`${this.cURL}${id}/`, {headers: hd})
   }
   getComment(id: number){
-    return this.http.get<Comment>(`${this.cURL}${id}/`, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.get<Comment>(`${this.cURL}${id}/`, {headers: hd})
   }
   updateComment(c: Comment, id: number){
-    return this.http.put<Comment>(`${this.cURL}${id}/`, c, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.put<Comment>(`${this.cURL}${id}/`, c, {headers: hd})
   }
   deleteComment(id: number){
-    return this.http.delete<Comment>(`${this.cURL}${id}/`, {headers: this.hd})
+    const hd = this.authSvc.getAuthHeaders()
+    return this.http.delete<Comment>(`${this.cURL}${id}/`, {headers: hd})
   }
 
 }

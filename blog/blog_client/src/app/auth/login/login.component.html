@@ -1,23 +1,19 @@
 <h2 class="text-center">Login</h2>
     <br />
 <div class="d-flex justify-content-center">
-  
+  <form [formGroup]="loginForm" class="row" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+      <mat-error *ngIf="submitted && loginForm.get('username')?.invalid">Username is required</mat-error>
+    </mat-form-field>
 
-    
-    <form [formGroup]="loginForm" class="row" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username">
-        <mat-error *ngIf="submitted && loginForm.get('username')?.invalid">Username is required</mat-error>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="submitted && loginForm.get('password')?.invalid">Password is required</mat-error>
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password">
-        <mat-error *ngIf="submitted && loginForm.get('password')?.invalid">Password is required</mat-error>
-      </mat-form-field>
-
-      <button mat-raised-button color="primary" type="submit">Login</button>
-    </form>
-  
+    <button mat-raised-button color="primary" type="submit">Login</button>
+  </form>
 </div>
